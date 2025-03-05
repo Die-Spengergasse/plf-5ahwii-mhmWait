@@ -11,6 +11,7 @@ class Grid extends Component {
     intervallId;
     offset_x;
     offset_y;
+    simulationSpeed;
     
     constructor(parent, anchor, columns, rows) {
         super(parent, anchor);
@@ -27,6 +28,7 @@ class Grid extends Component {
         this.offset_y = 0;
         this.cells = {}; // {row: {column: cell}}
         this.elements = new Map();
+        this.simulationSpeed = 250; // Default speed in milliseconds
         
         // Erstelle die DOM-Elemente für das Grid
         this.createGridCells();
@@ -182,7 +184,7 @@ class Grid extends Component {
     }
     
     // Simulation starten
-    getGoing(ms = 250) {
+    getGoing(ms = this.simulationSpeed) {
         if (!(this.intervallId === undefined)) {
             console.warn("Grid.getGoing: already going");
             return;
@@ -197,7 +199,23 @@ class Grid extends Component {
         clearInterval(this.intervallId);
         this.intervallId = undefined;
     }
+    // Simulate speed methods
+    setSimulationSpeed(speed) {
+        this.simulationSpeed = speed;
+        
+        // If simulation is running, restart with new speed
+        if (this.intervallId !== undefined) {
+            this.pause();
+            this.getGoing(speed);
+        }
+    }
     
+    // Rapid generation advance
+    advanceGenerations(numGenerations) {
+        for (let i = 0; i < numGenerations; i++) {
+            this.ageOneGeneration();
+        }
+    }
     // Grid zurücksetzen
     reset() {
         this.pause();

@@ -21,11 +21,37 @@ class UIController {
         const offsetYButton = document.querySelector("button#offset-y");
         const livecountButton = document.querySelector("button#livecount");
 
+        // New speed control buttons
+        const speedButtons = document.querySelectorAll(".speed-btn");
+        const advance1Button = document.querySelector("#advance-1");
+        const advance10Button = document.querySelector("#advance-10");
+        const advance100Button = document.querySelector("#advance-100");
+
         // Event Listener für Buttons
         resetButton.addEventListener("click", () => this.grid.reset());
         goButton.addEventListener("click", () => this.grid.getGoing());
         stopButton.addEventListener("click", () => this.grid.pause());
 
+        // Speed control event listeners
+        speedButtons.forEach(button => {
+            button.addEventListener("click", (e) => {
+                // Remove active class from all speed buttons
+                speedButtons.forEach(btn => btn.classList.remove("active"));
+                
+                // Add active class to clicked button
+                e.target.classList.add("active");
+                
+                // Set simulation speed
+                const speed = parseInt(e.target.getAttribute("data-speed"));
+                this.grid.setSimulationSpeed(speed);
+            });
+        });
+
+        // Generation advance event listeners
+        advance1Button.addEventListener("click", () => this.grid.advanceGenerations(1));
+        advance10Button.addEventListener("click", () => this.grid.advanceGenerations(10));
+        advance100Button.addEventListener("click", () => this.grid.advanceGenerations(100));
+        
         formSelector.addEventListener("change", (e) => {
             if (e.target.value && e.target.value !== "-- Muster auswählen --") {
                 this.grid.reset();
