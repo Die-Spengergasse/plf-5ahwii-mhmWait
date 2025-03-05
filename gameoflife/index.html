@@ -11,20 +11,22 @@
     </head>
 
     <body>
-        <div class="container my-2">
-            <div class="row m-2">
-                <main class="col">
+        <div class="container-fluid py-3">
+            <div class="row justify-content-center">
+                <main class="col-12 col-lg-auto d-flex justify-content-center mb-3 mb-lg-0">
                     <!-- the actual grid -->
                 </main>
                 <div
                     id="controls"
-                    class="col d-flex flex-column ms-3 text-center gap-4 bg-info-subtle border rounded border-4">
-                    <header class="h1 my-4">John Conway's Game of Life</header>
+                    class="col-12 col-lg-auto d-flex flex-column text-center gap-3 bg-light shadow-sm border rounded py-4 px-3"
+                >
+                    <header class="h2 mb-3 text-primary fw-bold">John Conway's Game of Life</header>
                     <h3>Controls</h3>
                     <select
                         name="form"
                         class="form-select text-center border-4 border-primary-subtle"
-                        id="form">
+                        id="form"
+                    >
                         <option selected>drop some known figures</option>
                         <option>blinker</option>
                         <option>glider</option>
@@ -36,19 +38,22 @@
                         <button
                             type="button"
                             class="btn btn-outline-danger btn-lg"
-                            id="go">
+                            id="go"
+                        >
                             Play
                         </button>
                         <button
                             type="button"
                             class="btn btn-outline-danger btn-lg"
-                            id="stop">
+                            id="stop"
+                        >
                             Pause
                         </button>
                         <button
                             type="reset"
                             class="btn btn-outline-danger btn-lg"
-                            id="reset">
+                            id="reset"
+                        >
                             Reset
                         </button>
                     </div>
@@ -56,25 +61,29 @@
                         <button
                             type="button"
                             class="btn btn-outline-primary btn-lg"
-                            id="left">
+                            id="left"
+                        >
                             ←
                         </button>
                         <button
                             type="button"
                             class="btn btn-outline-primary btn-lg"
-                            id="up">
+                            id="up"
+                        >
                             ↑
                         </button>
                         <button
                             type="button"
                             class="btn btn-outline-primary btn-lg"
-                            id="down">
+                            id="down"
+                        >
                             ↓
                         </button>
                         <button
                             type="button"
                             class="btn btn-outline-primary btn-lg"
-                            id="right">
+                            id="right"
+                        >
                             →
                         </button>
                     </div>
@@ -84,21 +93,24 @@
                             disabled
                             type="button"
                             class="btn btn-outline-secondary"
-                            id="livecount">
+                            id="livecount"
+                        >
                             lifecount: 0
                         </button>
                         <button
                             disabled
                             type="button"
                             class="btn btn-outline-secondary"
-                            id="offset-x">
+                            id="offset-x"
+                        >
                             offset_x: 0
                         </button>
                         <button
                             disabled
                             type="button"
                             class="btn btn-outline-secondary"
-                            id="offset-y">
+                            id="offset-y"
+                        >
                             offset_y: 0
                         </button>
                     </div>
@@ -106,15 +118,9 @@
                     <footer>
                         <p>
                             Links:
-                            <a
-                                href="https://glistening-churros-76bc03.netlify.app/"
-                                >On Netlify</a
-                            >
+                            <a href="https://glistening-churros-76bc03.netlify.app/">On Netlify</a>
                             and
-                            <a
-                                href="https://github.com/georgernstgraf/gameoflife"
-                                >Github Repo</a
-                            >
+                            <a href="https://github.com/georgernstgraf/gameoflife">Github Repo</a>
                         </p>
                     </footer>
                 </div>

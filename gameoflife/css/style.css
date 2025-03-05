@@ -1,11 +1,14 @@
 :root {
-    --sudoku-size: min(95dvh, 95dvw);
-    --controls-size: calc(var(--sudoku-size)/2)
+    --sudoku-size: min(90dvh, 90dvw);
+    --controls-size: min(400px,100%);
+    --cell-border-radius: 2px;
+    --animation-speed: 0.15s;
 }
 
 #controls {
     width: var(--controls-size);
-    max-width: var(--controls-size)
+    max-width: var(--controls-size);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
 #grid {
@@ -15,16 +18,50 @@
     aspect-ratio: 1/1;
     grid-gap: 1px;
     /* border: 2px solid lightseagreen; */
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
 }
 
 /* styling cell below */
 #grid div {
-    background-color: var(--bs-info-bg-subtle);
-    transition: background-color 0.2s ease;
+    background-color: var(--bs-gray-200);
+    transition: all var(--animation-speed) ease-in-out;
     width: auto;
     aspect-ratio: 1/1;
+    border-radius: var(--cell-border-radius);
 }
 
 #grid div.living {
-    background-color: black;
+    background-color:var(--bs-primary);
+    box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+}
+
+#grid div:hover {
+    background-color: var(--bs-info-bg-subtle);
+    transform: scale(1.1);
+    z-index: 1;
+}
+
+.stat-display {
+    font-family: var(--bs-font-monospace);
+    background-color: var(--bs-dark-bg-subtle);
+    color: var(--bs-dark);
+    border-radius: var(--bs-border-radius);
+    padding: 0.375rem 0.75rem;
+}
+
+@media (max-width: 992px) {
+    :root {
+        --sudoku-size: min(80vh, 95vw);
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+    
+    #controls {
+        margin-top: 1rem;
+    }
 }

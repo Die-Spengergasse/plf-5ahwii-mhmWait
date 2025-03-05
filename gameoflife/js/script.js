@@ -61,8 +61,12 @@ class Grid extends Component {
     }
     // unordered
     *cellIterator() {
-        for (let row in this.cells) {
-            for (let column in this.cells[row]) {
+        const rows = Object.keys(this.cells);
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+            const columns = Object.keys(this.cells[row]);
+            for (let j = 0; j < columns.length; j++) {
+                const column = columns[j];
                 yield this.cells[row][column];
             }
         }
@@ -74,23 +78,42 @@ class Grid extends Component {
         // 3. update Display for all cells in relevantCellsNow
         // 4. transfer all living cells to a new Obj
         // 5. replace relevantCellsNow with new Obj
-        [...this.cellIterator()].forEach((cell) => {
-            cell.calculateLivingThen();
-        }); // 1.
-        [...this.cellIterator()].forEach((cell) => {
-            cell.livingThen ?? cell.calculateLivingThen();
-        }); // 2. (handles undefined vs. false)
-        [...this.cellIterator()].forEach((cell) => {
-            cell.advanceToNextGeneration();
-        }); // 3.
+        const cellCache = new Map();
         const futureCells = {};
-        [...this.cellIterator()].forEach((cell) => {
+        const cells = [...this.cellIterator()];
+        cells.forEach((cell) => {
+            if (cell.living) {
+                this.markCellAndNeighbors(cell, cellCache);
+            }
+        });
+        for (const [key, cell] of cellCache.entries()) {
+            cell.calculateLivingThen();
+        }
+        for (const [key, cell] of cellCache.entries()) {
+            cell.advanceToNextGeneration();
             if (cell.living) {
                 this.getCell(cell.row, cell.column, futureCells).setLiving();
             }
-        }); // 4.
-        this.cells = futureCells; // 5.
+        }
+
+        this.cells = futureCells;
         this.displayLiveCount();
+    }
+    markCellAndNeighbors(cell, cellCache) {
+        const rowStart = cell.row - 1;
+        const rowEnd = cell.row + 1;
+        const colStart = cell.column - 1;
+        const colEnd = cell.column + 1;
+
+        for (let r = rowStart; r <= rowEnd; r++) {
+            for (let c = colStart; c <= colEnd; c++) {
+                const key = `${r},${c}`;
+                if (!cellCache.has(key)) {
+                    const neighborCell = this.getCell(r, c);
+                    cellCache.set(key, neighborCell);
+                }
+            }
+        }
     }
     shift(arg) {
         const factor = -5;
